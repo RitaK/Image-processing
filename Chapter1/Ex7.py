@@ -1,7 +1,8 @@
 import numpy as np
 import cv2
 
-Iin1 = cv2.imread('kidface.jpg', cv2.IMREAD_GRAYSCALE)
+# half-toning. 4 bits instead of every 1
+Iin1 = cv2.imread('lulu1.jpg', cv2.IMREAD_GRAYSCALE)
 cv2.imshow('kidface', Iin1)
 
 

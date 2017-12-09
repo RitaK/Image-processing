@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 
+#thresholding. binary picture
 
 def thresholding(t):
     I = cv2.imread('lulu1.jpg', cv2.IMREAD_GRAYSCALE)
