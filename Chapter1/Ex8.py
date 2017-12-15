@@ -17,7 +17,7 @@ for i in range(d1):
     for j in range(d2):
         if 0 < i < d1-1 and 0 < j < d2-1:
             oldpixel = Iin1[i,j]
-            newpixel = (Iin1[i,j] > 100).astype(int)
+            newpixel = (Iin1[i,j] > 160).astype(int)
             if newpixel == 1:
                 newpixel = 255
             Iin1[i,j] = newpixel
