@@ -1,7 +1,8 @@
 import numpy as np
 import cv2
 
-#floy-steinberg
+#Connectivity ingrediants (? rechivei kshiroot)
+# returns how many Connectivity elemets with holes are there
 
 Iin1 = cv2.imread('holes.jpg', cv2.IMREAD_GRAYSCALE)
 cv2.imshow('holes', Iin1)
