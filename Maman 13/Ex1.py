@@ -6,10 +6,21 @@ import math
 #Exersice 1
 #Author: Rita Kaufman
 
-#The histogram function of the surrounding local neighborhood.
-#In our case the neighborhood will be 3*3.
-#Params: neiImg - the neighborhood that its histogram needs to be calculated
-#Returns: an array that represents the histogram function.
+"""
+The histogram function of the surrounding local neighborhood.
+In our case the neighborhood will be 3*3.
+
+Params:
+firstColHist - is it the first column
+oldHist - the previous histogram of the last pixel if there is one
+neiImg - the neighborhood that its histogram needs to be calculated
+leftCol - the old left column which needs to be erased from the histogram
+rightCol - the right new column that needs to be added to the histogram
+
+Returns:
+an array that represents the histogram function.
+"""
+
 
 def localHistogram(firstColHist, oldHist,  neiImg, leftCol, rightCol):
     #our histogram
@@ -39,10 +50,19 @@ def localHistogram(firstColHist, oldHist,  neiImg, leftCol, rightCol):
 
     return hist
 
-#The function that will be used to transform each pixel color. This is an accumulation of the probabilities of each intensity level.
-#The function is: for each intensity level g, it is a sum of all h(i)/N for all i= 1,....,g.
-#Params: hist - a histogram that is needed for this function calculation
-#Returns: an array that represents the accumulative histogram probability function, as described above. Accumulation of a density function
+"""
+The function that will be used to transform each pixel color. This is an accumulation of the probabilities of each intensity level.
+The function is: for each intensity level g, it is a sum of all h(i) for all i= 1,....,g.
+later it would be divided by number of pixels in the histogram! so it will truly be density-like
+
+Params:
+hist - a histogram that is needed for this function calculation
+
+Returns:
+an array that represents the accumulative histogram probability function, as described above. Accumulation of a density function
+
+"""
+
 
 def accuDensities(hist):
     #our accumulative densities function
@@ -129,8 +149,13 @@ for i in range(d1):
                             leftCol = Iin1[i-1: i+2, j - 2]
                         rightCol = Iin1[i-1: i+2, j + 1]
 
+        #calculating the current histogram. the last histogram is used to calculate the new one
         currHist = localHistogram((j == 0), currHist, neighborhood, leftCol, rightCol)
+        #calculating the accumulating density, which is currently just an accumulative function of the histogram
         acuDens = accuDensities(currHist)
+        #now multiplying the current pixel intensity level in the accumulative function by 255 :
+        #the number of intensity level options. Then dividing it by the number of pixels in this neighborhood.
+        #this demonstrates the density when it is combined with the accumulative function
         Iout1[i,j] = math.floor((acuDens[Iin1[i,j]] * 255)/(neighborhood.shape[0]*neighborhood.shape[1]))
 
 
@@ -138,6 +163,7 @@ for i in range(d1):
 # print Iout2.size
 Iout1 = Iout1.astype(np.uint8)
 
+cv2.imwrite("embedded_squares_new.JPG", Iout1)
 cv2.imshow("embedded_squares - new", Iout1)
 
 cv2.waitKey(0)
